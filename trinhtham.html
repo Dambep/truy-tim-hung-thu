@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò Chơi Trinh Thám</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Trò Chơi Trinh Thám</h1>
+        
+        <div id="story">
+            <p id="story-text">Chào bạn! Hãy bắt đầu cuộc hành trình điều tra vụ án...</p>
+        </div>
+
+        <div id="cards-container">
+            <button id="next-card-btn">Tiếp Tục</button>
+        </div>
+
+        <div id="tasks-container">
+            <button id="task-btn" style="display:none;">Thực Hiện Nhiệm Vụ</button>
+        </div>
+        
+        <div id="result-container">
+            <button id="answer-btn" style="display:none;">Tìm Thủ Phạm</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f9;
+}
+
+#game-container {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+#story {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#tasks-container, #result-container {
+    margin-top: 30px;
+}
+let currentStage = 0;  // Track the game progress
+
+// Game cards and tasks
+const gameCards = [
+    "Chào bạn! Bạn là một thám tử. Hãy bắt đầu tìm manh mối về vụ án giết người!",
+    "Bạn tìm thấy một lá thư ẩn giấu. Trong thư có thông tin quan trọng về nạn nhân.",
+    "Nạn nhân là một nhà khoa học nổi tiếng. Có một nghi can là đồng nghiệp của nạn nhân.",
+    "Manh mối tiếp theo là một chiếc chìa khóa bị bỏ quên tại hiện trường.",
+    "Bạn đã thu thập đủ thông tin. Hãy quyết định ai là thủ phạm!"
+];
+
+const tasks = [
+    "Tìm manh mối đầu tiên.",
+    "Phân tích lá thư và tìm nghi can.",
+    "Kiểm tra các chứng cứ, xác minh thời gian và không gian.",
+    "Đưa ra kết luận về thủ phạm và động cơ gây án."
+];
+
+function showNextCard() {
+    if (currentStage < gameCards.length) {
+        document.getElementById('story-text').textContent = gameCards[currentStage];
+        currentStage++;
+    } else {
+        document.getElementById('result-container').style.display = 'block';
+    }
+}
+
+function showTask() {
+    if (currentStage < tasks.length) {
+        alert(`Nhiệm vụ: ${tasks[currentStage]}`);
+        currentStage++;
+    }
+}
+
+function showAnswer() {
+    const answer = prompt("Bạn nghĩ ai là thủ phạm? (Nhập tên nghi can)");
+    alert(`Bạn đã chọn: ${answer}. Kết quả sẽ được hiển thị sau.`);
+}
+
+document.getElementById('next-card-btn').addEventListener('click', showNextCard);
+document.getElementById('task-btn').addEventListener('click', showTask);
+document.getElementById('answer-btn').addEventListener('click', showAnswer);
+
+showNextCard();
